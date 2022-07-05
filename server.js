@@ -4,6 +4,8 @@ require("dotenv").config();
 // Web server config
 const PORT = process.env.PORT || 8080;
 const sassMiddleware = require("./lib/sass-middleware");
+const cookieSession = require('cookie-session');
+
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
@@ -14,13 +16,27 @@ const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
 db.connect();
 
+const {
+      //  pollsDatabase,
+       getUserByEmail,
+                 users,
+  generateRandomString
+  // pollsForUser
+} = require('./helpers');
+
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieSession({
+  name: 'session',
+  keys: ['oh', 'Lord', 'Christ', 'Jesus'],
+}));
+
 
 app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
 
 app.use(
   "/styles",
@@ -50,63 +66,89 @@ app.use("/api/widgets", widgetsRoutes(db));
 
 app.get("/", (req, res) => {
   //res.render("index");
-  res.redirect("index");
+  res.redirect("/polls");
 
 });
 
 //index page
 app.get("/polls", (req, res) => {
-  // const userId = req.session.user_id;
-  // let _url = urlsForUser(userId);
-  // let shortURLArr = [];
+  const user_id = req.session.user_id;
+  // let _poll = pollsForUser(userId);
+  // let userPollsArr = [];
 
-  // shortURLArr.push(_url);
-  // const userUrls = {}
+  // userPollsArr.push(_poll);
+  // const userPolls = {}
 
-  // for (const url in urlDatabase) {
-  //   const urldetails = urlDatabase[url]
-  //   if (urldetails["userID"] === userId) {
-  //     userUrls[url] = urldetails;
+  // for (const poll in pollsDatabase) {
+  //   const pollDetails = pollsDatabase[poll]
+  //   if (pollDetails["user_id"] === user_id) {
+  //     userPolls[poll] = urldetails;
   //   }
   // }
 
-  // const templateVars = {
-  //   user: users[userId],
-  //   urls: userUrls,
-  //   shortURL: shortURLArr
-  // };
+  const templateVars = {
+    user: users[user_id],
+    // polls: userPolls,
+    // choices: userPollsArr
+  };
 
-  res.render("index"); //, templateVars);
+  res.render("index", templateVars);
 
 });
 
 
 app.get('/register', (req, res) => {
-
-  render('views/register.ejs');
+  res.render('register');
 
 });
 
 
-//auto login the user with user's id
-app.get('/login/:id', (req, res) => {
+//auto login the user with user's email address
+app.get('/login/:email', (req, res) => {
 
   // using encrypted cookies
-  req.session.user_id = req.params.id;
-
+  req.session.user_id = req.params.user_id;
 
   // send the user to root home page
-  res.redirect('/');
+  res.redirect('/polls');
 });
 
 
 app.post('/register', (req, res) => {
-  const userEmail = req.session.email;
-  const userPassword = req.session.password;
+  const newUser = req.body.username;
+  const userEmail = req.body.email;
+
+  const user_id = generateRandomString();
+  const currentUser = getUserByEmail(userEmail, users);
+
+  if (user_id === '') {
+    res.status(400).send('400. Please enter email/password.');
+  }
+
+  if(currentUser) {
+    res.status(400).send('400. A user with that email has already exist.');
+  }
+
+  let user = {
+    id: user_id,
+    name: newUser,
+    email: userEmail
+  };
+  users[user_id] = user;
+
+  req.session.user_id = user_id;
+  // req.session.userEmail = userEmail;
+  res.redirect("/polls");
 
 });
 
 
+app.get('/logout', (req, res) => {
+  req.session = null;
+  res.redirect('/polls');
+});
+
+
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`Example app listening on port ${PORT}.`);
 });
