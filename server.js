@@ -49,8 +49,63 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  res.render("index");
+  //res.render("index");
+  res.redirect("index");
+
 });
+
+//index page
+app.get("/polls", (req, res) => {
+  // const userId = req.session.user_id;
+  // let _url = urlsForUser(userId);
+  // let shortURLArr = [];
+
+  // shortURLArr.push(_url);
+  // const userUrls = {}
+
+  // for (const url in urlDatabase) {
+  //   const urldetails = urlDatabase[url]
+  //   if (urldetails["userID"] === userId) {
+  //     userUrls[url] = urldetails;
+  //   }
+  // }
+
+  // const templateVars = {
+  //   user: users[userId],
+  //   urls: userUrls,
+  //   shortURL: shortURLArr
+  // };
+
+  res.render("index"); //, templateVars);
+
+});
+
+
+app.get('/register', (req, res) => {
+
+  render('views/register.ejs');
+
+});
+
+
+//auto login the user with user's id
+app.get('/login/:id', (req, res) => {
+
+  // using encrypted cookies
+  req.session.user_id = req.params.id;
+
+
+  // send the user to root home page
+  res.redirect('/');
+});
+
+
+app.post('/register', (req, res) => {
+  const userEmail = req.session.email;
+  const userPassword = req.session.password;
+
+});
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
