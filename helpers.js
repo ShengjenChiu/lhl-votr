@@ -3,8 +3,12 @@
 //mock database of URLs
 const pollsDatabase = {
   1 : {
-    choices: ['choice'],
-    user_id: "userRandomID"
+    id: 1,
+    user_id: 1,
+    title: 4,
+    description: "movie to watch",
+    poll_link: 'administration_link',
+    results_link: "userRandomID"
   },
 
 
@@ -27,7 +31,7 @@ const pollsDatabase = {
 
 //mock database of users
 const users = {
-  "user@example.com" : {
+  1 : {
     id: "userRandomID",
     name: "john",
     email: "user@example.com"

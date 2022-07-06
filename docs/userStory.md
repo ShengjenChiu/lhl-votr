@@ -6,7 +6,7 @@ A web app that helps groups of friends to vote on a preferred choice (using rank
  -each choice have 
   --a title
   --optional description
- -the creator must enter an email  //name?
+ -the creator must enter an email
 
 * when (a poll is finished being created) 
  -the user is given two links: 
