@@ -273,7 +273,7 @@ app.post('/polls/polls', (req, res) => {
 
 
 //from voters page to the results page
-app.post('/polls/vote', (req, res) => {
+app.post('/polls/voters', (req, res) => {
   //const
 
   res.redirect('/polls/results');
