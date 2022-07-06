@@ -64,13 +64,14 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+//Link project root directory to the index page
 app.get("/", (req, res) => {
   //res.render("index");
   res.redirect("/polls");
 
 });
 
-//index page
+//Link to the index page
 app.get("/polls", (req, res) => {
   const user_id = req.session.user_id;
   // let _poll = pollsForUser(userId);
@@ -97,9 +98,27 @@ app.get("/polls", (req, res) => {
 });
 
 
+//Link to the voter page
+app.get('/polls/polls', (req, res) => {
+  res.render('polls');
+});
+
+
+//Link to the voter page
+app.get('/polls/voters', (req, res) => {
+  res.render('voters');
+});
+
+
+//Link to the results page
+app.get('/polls/results', (req, res) => {
+  res.render('results');
+});
+
+
+//Link to the register page
 app.get('/register', (req, res) => {
   res.render('register');
-
 });
 
 
@@ -109,11 +128,11 @@ app.get('/login/:user_id', (req, res) => {
   // using encrypted cookies
   req.session.user_id = req.params.user_id;
 
-  // send the user to root home page
+  // send the user to the index page
   res.redirect('/polls');
 });
 
-
+//from register page back to the index page
 app.post('/register', (req, res) => {
   const newUser = req.body.username;
   const userEmail = req.body.email;
@@ -169,11 +188,10 @@ app.post('/register', (req, res) => {
   req.session.user_id = user_id;
   // req.session.userEmail = userEmail;
   res.redirect("/polls");
-
 });
 
 
-//To create a poll
+//To create a poll: polls page
 app.post("/polls", (req, res) => {
   // const shortURL = generateRandomString();
   const userEmail = req.body.email;
@@ -191,12 +209,78 @@ app.post("/polls", (req, res) => {
     //   results_link:
     // };
     // res.redirect(`/urls/${userID}`);
-    res.render(`polls`);  //should send user a email with two links
-  }
 
+    //to create one new pol for one user
+    // db
+    // .query(
+    //  `INSERT INTO polls (
+    //   user_id, title, description, poll_link, results_link)
+    //   VALUES (
+    //   $1, $2, $3, $4, $5) RETURNING *;`,
+    //   [user_id, "Movie", "Movie to watch", "", "")
+    // .then((result) => {
+    //   console.log(result.rows[0]);
+    //   return result.rows[0];
+    // })
+    // .catch((err) => {
+    //   console.log(err.message)
+    // });
+
+
+    //email for user:
+    // const email4User = db.query(
+    //   `SELECT poll_link AS administration_link
+    //           results_link AS submission_link
+    //    FROM users
+    //    JOIN polls ON polls.user_id = users.id
+    //    WHERE users.id = $1
+    //    LIMIT 1;`, [userID])
+    //  .then((result) => {
+    //    console.log(result.rows[0]);
+    //    return result.rows[0];
+    //  })
+    //  .catch((err) => {
+    //    console.log(err.message)
+    //  });
+
+    //Choices from the poll for a user
+    // const choices = db.query(
+    //   `SELECT polls.title AS choice-title
+    //           polls.description AS choice-description
+    //    FROM users
+    //    JOIN polls ON polls.user_id = users.id
+    //    WHERE users.id = $1;`, [userID])
+    //  .then((result) => {
+    //    console.log(result.rows[0]);
+    //    return result.rows[0];
+    //  })
+    //  .catch((err) => {
+    //    console.log(err.message)
+    //  });
+
+    //should send user a email with two links
+    res.redirect('/polls/polls');
+  }
 });
 
 
+//from polls page to the voters page
+app.post('/polls/polls', (req, res) => {
+  //const
+
+  res.redirect('/polls/voters');
+});
+
+
+//from voters page to the results page
+app.post('/polls/vote', (req, res) => {
+  //const
+
+  res.redirect('/polls/results');
+});
+
+
+//User's logout page
 app.get('/logout', (req, res) => {
   req.session = null;
   res.redirect('/polls');
