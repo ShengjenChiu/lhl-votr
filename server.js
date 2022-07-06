@@ -7,6 +7,7 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const nodemon = require("nodemon");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -48,10 +49,13 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get("/", (req, res) => {
+app.get("/index", (req, res) => {
   //res.render("index");
-  res.redirect("index");
+  res.render("index");
+});
 
+app.get("/voters", (req, res) => {
+  res.render("voters");
 });
 
 //index page
@@ -76,36 +80,26 @@ app.get("/polls", (req, res) => {
   //   shortURL: shortURLArr
   // };
 
-  res.render("index"); //, templateVars);
-
+  res.render("polls"); //, templateVars);
 });
 
-
-app.get('/register', (req, res) => {
-
-  render('views/register.ejs');
-
+app.get("/register", (req, res) => {
+  render("views/register.ejs");
 });
-
 
 //auto login the user with user's id
-app.get('/login/:id', (req, res) => {
+// app.get("/login/:id", (req, res) => {
+//   // using encrypted cookies
+//   req.session.user_id = req.params.id;
 
-  // using encrypted cookies
-  req.session.user_id = req.params.id;
+//   // send the user to root home page
+//   res.redirect("/");
+// });
 
-
-  // send the user to root home page
-  res.redirect('/');
-});
-
-
-app.post('/register', (req, res) => {
-  const userEmail = req.session.email;
-  const userPassword = req.session.password;
-
-});
-
+// app.post("/register", (req, res) => {
+//   const userEmail = req.session.email;
+//   const userPassword = req.session.password;
+// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
