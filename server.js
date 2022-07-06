@@ -17,7 +17,7 @@ const db = new Pool(dbParams);
 db.connect();
 
 const {
-      //  pollsDatabase,
+      pollsDatabase,
        getUserByEmail,
                  users,
   generateRandomString
@@ -104,7 +104,7 @@ app.get('/register', (req, res) => {
 
 
 //auto login the user with user's email address
-app.get('/login/:email', (req, res) => {
+app.get('/login/:user_id', (req, res) => {
 
   // using encrypted cookies
   req.session.user_id = req.params.user_id;
@@ -119,6 +119,20 @@ app.post('/register', (req, res) => {
   const userEmail = req.body.email;
 
   const user_id = generateRandomString();
+
+  // const user_id = db.query(
+  //   `SELECT users.id
+  //    FROM users
+  //    WHERE users.email = $1
+  //    LIMIT 1;`, [userEmail])
+  //  .then((result) => {
+  //    console.log(result.rows[0]);
+  //    return result.rows[0];
+  //  })
+  //  .catch((err) => {
+  //    console.log(err.message)
+  //  });
+
   const currentUser = getUserByEmail(userEmail, users);
 
   if (user_id === '') {
@@ -136,9 +150,49 @@ app.post('/register', (req, res) => {
   };
   users[user_id] = user;
 
+  // db
+  // .query(
+  //  `INSERT INTO users (
+  //   id, name, email)
+  //   VALUES (
+  //   $1, $2, $3) RETURNING *;`,
+  //   [user_id, newUser, userEmail])
+  // .then((result) => {
+  //   console.log(result.rows[0]);
+  //   return result.rows[0];
+  // })
+  // .catch((err) => {
+  //   console.log(err.message)
+  // });
+
+
   req.session.user_id = user_id;
   // req.session.userEmail = userEmail;
   res.redirect("/polls");
+
+});
+
+
+//To create a poll
+app.post("/polls", (req, res) => {
+  // const shortURL = generateRandomString();
+  const userEmail = req.body.email;
+  const userID = req.session.user_id;
+
+  if (!userID) {
+    res.redirect("/register");
+  } else {
+    // pollsDatabase[userID] = {
+    //   id: 1,
+    //   user_id: 1,
+    //   title: 4,
+    //   description: "movie to watch",
+    //   poll_link: //administration_link,
+    //   results_link:
+    // };
+    // res.redirect(`/urls/${userID}`);
+    res.render(`polls`);  //should send user a email with two links
+  }
 
 });
 
