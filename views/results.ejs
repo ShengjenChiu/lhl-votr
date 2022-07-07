@@ -32,27 +32,32 @@
 
   <!-- Top Nav bar -->
   <header class="main-header">
-    <img src="/media/Votr Logo.png" href="index.ejs" class="logo"></img>
-    <nav class="main-nav">
-      <div class="main-nav-container">
-        <ul class="main-nav-list">
-          <li><a class="main-nav-link" href="/views/index.ejs">Home</a></li>
-          <li><a class="main-nav-link" href="/views/polls.ejs">Polls</a></li>
-        </ul>
-      </div>
+    <a href="/"><img src="/media/Votr Logo.png" class="logo"></img></a>
+    <div class="main-nav-container">
+      <ul class="main-nav-list">
+        <li><a class="main-nav-link" href="/">Home</a></li>
+        <li><a class="main-nav-link" href="/polls">Polls</a></li>
+      </ul>
+    </div>
     </nav>
   </header>
 
   <!-- RESULTS SECTION -->
   <section class="results-section">
-    <h2 class="results-header">Activity 1 it is!!! &#128516</h2>
+    <!-- <h2 class="results-header">Activity 1 it is!!! &#128516</h2> -->
     <div class="activity">
-      <span class="activity-name">Activity 1</span>
-      <span class="result result1">10</span>
-      <span class="activity-name">Activity 2</span>
-      <span class="result result2">8</span>
-      <span class="activity-name">Activity 3</span>
-      <span class="result result3">5</span>
+      <span class="activity-name">
+        <%= firstChoice%>
+      </span>
+
+      <span class="activity-name">
+        <%= secondChoice %>
+      </span>
+
+      <span class="activity-name">
+        <%= thirdChoice %>
+      </span>
+
     </div>
 
   </section>

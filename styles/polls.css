@@ -1,6 +1,6 @@
 /* PRIMARY: #662d91
 
-- TINTS: 
+- TINTS:
 - SHADES: #f4f1f8
 - ACCENTS:
 - GREYS: #555 #333
@@ -54,6 +54,8 @@ textarea {
   font-size: 1.6em;
   padding: 10px 20px;
   border-radius: 5px;
+  border: none;
+  outline: none;
 }
 
 .add-choice:hover,

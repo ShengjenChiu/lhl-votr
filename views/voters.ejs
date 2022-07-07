@@ -7,6 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Votr</title>
 
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="/scripts/app.js"> </script>
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -31,12 +38,13 @@
 <body>
   <!-- Top Nav bar -->
   <header class="main-header">
-    <img src="/media/Votr Logo.png" href="index.ejs" class="logo"></img>
+    <a href="/"><img src="/media/Votr Logo.png" class="logo"></img></a>
+
     <nav class="main-nav">
       <div class="main-nav-container">
         <ul class="main-nav-list">
-          <li><a class="main-nav-link" href="/lhl-votr/views/index.ejs">Home</a></li>
-          <li><a class="main-nav-link" href="/lhl-votr/views/polls.ejs">Polls</a></li>
+          <li><a class="main-nav-link" href="/">Home</a></li>
+          <li><a class="main-nav-link" href="/polls">Polls</a></li>
         </ul>
       </div>
     </nav>
@@ -44,39 +52,50 @@
 
   <!-- Vote Section -->
 
-  <form action="/polls/voters" method="POST">
+  <form action="/vote" method="POST">
 
     <section class="votes">
       <section class="results-section">
         <div class="activity">
-          <span class="activity-name">Activity 1</span>
+          <span class="activity-name">
+            <%= firstChoice %>
+          </span>
 
           <div class="ratings">
-            <button class="links">1</button>
-            <button class="links">2</button>
-            <button class="links">3</button>
-            <button class="links">4</button>
-            <button class="links">5</button>
+            <input type="radio" id="links" name="select" value="1"></input>
+            <label for="links" class="links">1</label>
+            <input type="radio" id="links" name="select" value="2"></input>
+            <label for="links" class="links">2</label>
+            <input type="radio" id="links" name="select" value="3"></input>
+            <label for="links" class="links">3</label>
           </div>
 
-          <span class="activity-name">Activity 2</span>
+          <span class="activity-name">
+            <%= secondChoice %>
+          </span>
           <div class="ratings">
-            <button class="links">1</button>
-            <button class="links">2</button>
-            <button class="links">3</button>
-            <button class="links">4</button>
-            <button class="links">5</button>
+            <input type="radio" id="links" name="select2" value="1"></input>
+            <label for="links" class="links">1</label>
+            <input type="radio" id="links" name="select2" value="2"></input>
+            <label for="links" class="links">2</label>
+            <input type="radio" id="links" name="select2" value="3"></input>
+            <label for="links" class="links">3</label>
           </div>
-          <span class="activity-name">Activity 3</span>
+          <span class="activity-name">
+            <%= thirdChoice %>
+          </span>
           <div class="ratings">
-            <button class="links">1</button>
-            <button class="links">2</button>
-            <button class="links">3</button>
-            <button class="links">4</button>
-            <button class="links">5</button>
+            <input type="radio" id="links" name="select3" value="1"></input>
+            <label for="links" class="links">1</label>
+            <input type="radio" id="links" name="select3" value="2"></input>
+            <label for="links" class="links">2</label>
+            <input type="radio" id="links" name="select3" value="3"></input>
+            <label for="links" class="links">3</label>
           </div>
         </div>
-
+        <div class="button-container">
+          <button class="submit">Submit</button>
+        </div>
   </form>
 
   </section>
@@ -91,8 +110,8 @@
     </div>
 
     <ul class="footer-list">
-      <li><a class="footer-link" href="/lhl-votr/views/index.ejs">Home</a></li>
-      <li><a class="footer-link" href="/lhl-votr/views/polls.ejs">Polls</a></li>
+      <li><a class="footer-link" href="/">Home</a></li>
+      <li><a class="footer-link" href="/polls">Polls</a></li>
       <!-- <li><a class="footer-cta" href="/Votr/views/polls.html">Create New Poll</a></li> -->
     </ul>
     <p class="copyright"> Copyright Votr @ 2022</p>
