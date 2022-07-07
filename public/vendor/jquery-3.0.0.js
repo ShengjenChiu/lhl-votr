@@ -11,11 +11,11 @@
  *
  * Date: 2016-06-09T18:02Z
  */
-( function( global, factory ) {
+(function( global, factory) {
 
-	"use strict";
+  "use strict";
 
-	if ( typeof module === "object" && typeof module.exports === "object" ) {
+  if (typeof module === "object" && typeof module.exports === "object") {
 
 		// For CommonJS and CommonJS-like environments where a proper `window`
 		// is present, execute the factory and get jQuery.

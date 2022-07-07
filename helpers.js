@@ -1,69 +1,69 @@
-//const bcrypt = require('bcryptjs');
+// //const bcrypt = require('bcryptjs');
 
-//mock database of URLs
-const pollsDatabase = {
-  1 : {
-    id: 1,
-    user_id: 1,
-    title: 4,
-    description: "movie to watch",
-    poll_link: 'administration_link',
-    results_link: "userRandomID"
-  },
-
-
-  2 : {
-    choices: ['choice'],
-    user_id: "userRandomID"
-  },
+// //mock database of URLs
+// const pollsDatabase = {
+//   1 : {
+//     id: 1,
+//     userId: 1,
+//     title: 4,
+//     description: "movie to watch",
+//     pollLink: 'administration_link',
+//     resultsLink: "userRandomID"
+//   },
 
 
-  3 : {
-    choices: ['choice'],
-    user_id: "userRandomID"
-  },
+//   2 : {
+//     choices: ['choice'],
+//     userId: "userRandomID"
+//   },
 
-  4 : {
-    choices: ['choice'],
-    user_id: "userRandomID"
-  }
-};
 
-//mock database of users
-const users = {
-  1 : {
-    id: "userRandomID",
-    name: "john",
-    email: "user@example.com"
-  },
+//   3 : {
+//     choices: ['choice'],
+//     userId: "userRandomID"
+//   },
 
-  2 : {
-    id: "user2RandomID",
-    name: "peter",
-    email: "user2@example.com"
-  },
+//   4 : {
+//     choices: ['choice'],
+//     userId: "userRandomID"
+//   }
+// };
 
-  3 : {
-    id: "userRandomID1",
-    name: "david",
-    email: "user0@example.com"
-  },
+// //mock database of users
+// const users = {
+//   1 : {
+//     id: "userRandomID",
+//     name: "john",
+//     email: "user@example.com"
+//   },
 
-};
+//   2 : {
+//     id: "user2RandomID",
+//     name: "peter",
+//     email: "user2@example.com"
+//   },
 
-function getUserByEmail(email, database) {
-  for (const userId in database) {
-    if (email === database[userId].email) {
-      return database[userId];
-    }
-  }
-  return undefined;
-}
+//   3 : {
+//     id: "userRandomID1",
+//     name: "david",
+//     email: "user0@example.com"
+//   },
 
-// generate random short URL
-function generateRandomString() {
-  return Math.floor((1 + Math.random()) * 0x1000000).toString(16).substring(1);
-}
+// };
+
+// const getUserByEmail = function (email, database) {
+//   for (const userId in database) {
+//     if (email === database[userId].email) {
+//       return database[userId];
+//     }
+//   }
+//   return undefined;
+// };
+
+// // generate random short URL
+// const generateRandomString = function () {
+//   return Math.floor((1 + Math.random()) * 0x1000000).toString(16).substring(1);
+// }
 
 //polls for users
 // function pollsForUser(id) {
@@ -79,9 +79,9 @@ function generateRandomString() {
 // }
 
 module.exports = {
-  pollsDatabase,
-  getUserByEmail,
-  users,
-  generateRandomString
+  // pollsDatabase,
+  // getUserByEmail,
+  // users,
+  // generateRandomString
   // pollsForUser
 };

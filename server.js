@@ -17,16 +17,16 @@ const db = new Pool(dbParams);
 db.connect();
 
 //Mail sending API
-const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const {
-  pollsDatabase,
-  getUserByEmail,
-  users,
-  generateRandomString,
-  // pollsForUser
-} = require("./helpers");
+// const {
+//   // pollsDatabase,
+//   // getUserByEmail,
+//   // users,
+//   // generateRandomString,
+//   // pollsForUser
+// } = require("./helpers");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -58,7 +58,7 @@ app.use("/styles", express.static("styles"));
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
-const { user } = require("pg/lib/defaults");
+//const { user } = require("pg/lib/defaults");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -66,33 +66,39 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
+//Link root project directory to the index page
 app.get("/", (req, res) => {
   res.render("index");
 });
 
+//Map url /polls to the polls page
 app.get("/polls", (req, res) => {
   res.render("polls");
 });
 
+//Start up the server
 app.listen(PORT, () => {
   console.log(`Votr app listening on port ${PORT}.`);
 });
 
+//Map url /vote to the voters page
 app.get("/vote", (req, res) => {
   res.render("voters");
 });
 
+//Map url /results to the results page
 app.get("/results", (req, res) => {
   res.render("results");
 });
 
+//User create a poll
 app.post("/polls", (req, res) => {
-  userEmail = req.body.email;
+  const userEmail = req.body.email;
 
   if (userEmail) {
     db.query(`INSERT INTO users (email)
     VALUES ($1)`, [userEmail], (err, response) => {
-    })
+    });
   }
 
 
