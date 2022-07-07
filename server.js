@@ -16,6 +16,10 @@ const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
 db.connect();
 
+//Mail sending API
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
 const {
   pollsDatabase,
   getUserByEmail,
@@ -54,6 +58,7 @@ app.use("/styles", express.static("styles"));
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
+const { user } = require("pg/lib/defaults");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -75,4 +80,54 @@ app.listen(PORT, () => {
 
 app.get("/vote", (req, res) => {
   res.render("voters");
+});
+
+app.get("/results", (req, res) => {
+  res.render("results");
+});
+
+app.post("/polls", (req, res) => {
+  userEmail = req.body.email;
+
+  if (userEmail) {
+    db.query(`INSERT INTO users (email)
+    VALUES ($1)`, [userEmail], (err, response) => {
+    })
+  }
+
+
+  /*
+  db.query(`INSERT INTO polls (
+    user_id,
+    title,
+    description,
+    poll_link,
+    results_link
+  )VALUES (
+    4,
+    'Movies',
+    'Movies to watch',
+    'www.google.com/links',
+    'www.google.com/results'
+  ),`)
+  db.query(`SELECT * FROM `, [], (err, response) => {
+    console.log(err ? err.stack : response.rows)
+  })
+
+
+  const msg = {
+    to: userEmail, // recipient
+    from: 'hamza.asim090@gmail.com', // verified sender
+    subject: 'Mail test',
+    text: 'If you can read this, it worked',
+    html: '<p><a href="http://localhost:8080/vote">Voting Link</a></p> <p><a href="http://localhost:8080/results">Results Link</a></p>',
+  }
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent')
+    })
+    .catch((error) => {
+      console.error(error)
+    })*/
 });

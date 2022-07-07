@@ -1,11 +1,11 @@
-INSERT INTO users (name, email)
-VALUES ('Devin Sanders', 'tristanjacobs@gmail.com'),
-  ('Iva Harrison', 'allisonjackson@mail.com'),
-  ('Lloyd Jefferson', 'asherpoole@gmx.com'),
-  ('Dale Coleman', 'michaelgray@mail.com'),
-  ('Alejandro Osborne', 'ariaatkinson@outlook.com'),
-  ('Nell Medina', 'juliansantos@aol.com'),
-  ('Estelle Walsh', 'elistanton@yahoo.com'),
-  ('Herbert Graves', 'emilyowen@live.com'),
-  ('John Stevens', 'charliebattle@yahoo.com'),
-  ('Isabelle Robbins', 'miasutton@aol.com');
+INSERT INTO users (email)
+VALUES ('tristanjacobs@gmail.com'),
+  ('allisonjackson@mail.com'),
+  ('asherpoole @gmx.com'),
+  ('michaelgray @mail.com'),
+  ('ariaatkinson@outlook.com'),
+  ('juliansantos@aol.com'),
+  ('elistanton@yahoo.com'),
+  ('emilyowen @live.com'),
+  ('charliebattle @yahoo.com'),
+  ('miasutton@aol.com');
