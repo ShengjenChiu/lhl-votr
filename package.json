@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
+    "alert": "^5.1.0",
     "chalk": "^2.4.2",
     "cookie": "^0.5.0",
     "cookie-session": "^2.0.0",
@@ -20,10 +21,15 @@
     "ejs": "^2.7.4",
     "express": "^4.18.1",
     "global": "^4.4.0",
+    "jquery": "^3.6.0",
     "morgan": "^1.10.0",
     "pg": "^8.5.0",
     "sass": "^1.35.1",
+<<<<<<< HEAD
     "sendgrid": "^5.2.3",
+=======
+    "sendgrid-mail": "0.0.3",
+>>>>>>> be35aa4e53c5bae07a2351daf8700ce60f5464ef
     "y": "^0.3.2"
   },
   "devDependencies": {

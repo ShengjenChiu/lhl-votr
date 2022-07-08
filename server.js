@@ -1,10 +1,11 @@
 // load .env data into process.env
 require("dotenv").config();
-
+let alert = require("alert");
 // Web server config
 const PORT = process.env.PORT || 8080;
 const sassMiddleware = require("./lib/sass-middleware");
 const cookieSession = require("cookie-session");
+// $ = require("jquery");
 
 const express = require("express");
 const app = express();
@@ -83,7 +84,12 @@ app.listen(PORT, () => {
 
 //Map url /vote to the voters page
 app.get("/vote", (req, res) => {
-  res.render("voters");
+  const templateVars = {
+    firstChoice: choice1,
+    secondChoice: choice2,
+    thirdChoice: choice3,
+  };
+  res.render("voters", templateVars);
 });
 
 //Map url /results to the results page
@@ -115,25 +121,27 @@ app.post("/polls", (req, res) => {
     'Movies to watch',
     'www.google.com/links',
     'www.google.com/results'
-  ),`)
+  ),`);
   db.query(`SELECT * FROM `, [], (err, response) => {
-    console.log(err ? err.stack : response.rows)
-  })
-
+    console.log(err ? err.stack : response.rows);
+  });*/
 
   const msg = {
     to: userEmail, // recipient
-    from: 'hamza.asim090@gmail.com', // verified sender
-    subject: 'Mail test',
-    text: 'If you can read this, it worked',
+    from: "alabitimi65@gmail.com", // verified sender
+    subject: "Mail test",
+    text: "If you can read this, it worked",
     html: '<p><a href="http://localhost:8080/vote">Voting Link</a></p> <p><a href="http://localhost:8080/results">Results Link</a></p>',
-  }
+  };
   sgMail
     .send(msg)
     .then(() => {
-      console.log('Email sent')
+      console.log("Email sent");
     })
     .catch((error) => {
-      console.error(error)
-    })*/
+      console.error(error);
+    });
+
+  res.redirect("/");
+  alert("Email Sent!");
 });
