@@ -92,12 +92,12 @@ app.get("/results", (req, res) => {
     [],
     (err, response) => {
       console.log(response.rows);
-      firstChoice =response.rows[0].activity;
-      firstPoints =response.rows[0].rating;
+      firstChoice = response.rows[0].activity;
+      firstPoints = response.rows[0].rating;
       secondChoice = response.rows[1].activity;
       secondPoints = response.rows[1].rating;
-      thirdPoints  = response.rows[2].rating;
-      thirdChoice =response.rows[2].activity;
+      thirdPoints = response.rows[2].rating;
+      thirdChoice = response.rows[2].activity;
 
       const templateVars = {
         firstChoice: firstChoice,
@@ -105,7 +105,7 @@ app.get("/results", (req, res) => {
         secondChoice: secondChoice,
         secondPoints: secondPoints,
         thirdChoice: thirdChoice,
-        thirdPoints: thirdPoints
+        thirdPoints: thirdPoints,
       };
       console.log(templateVars);
       res.render("results", templateVars);
@@ -208,10 +208,10 @@ app.post("/polls", (req, res) => {
 
   const msg = {
     to: userEmail, // recipient
-    from: "hamza.asim090@gmail.com", // verified sender
-    subject: "Mail test",
+    from: "votrapp@outlook.com", // verified sender
+    subject: "Polls Links",
     text: "If you can read this, it worked",
-    html: '<p><a href="http://localhost:8080/vote">Voting Link</a></p> <p><a href="http://localhost:8080/results">Results Link</a></p>',
+    html: '<p> Dear User, <br><br> Here is your voting link, send this to your friends: <a href="http://localhost:8080/vote">Voting Link</a></p> <p>Here is the results page, click to see polls result: <a href="http://localhost:8080/results">Results Link</a> <br><br> Have fun!   &#128521</p>',
   };
   sgMail
     .send(msg)
