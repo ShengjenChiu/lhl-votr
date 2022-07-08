@@ -77,9 +77,7 @@ app.get("/polls", (req, res) => {
   res.render("polls");
 });
 
-<<<<<<< HEAD
 //Start up the server
-=======
 app.get("/results", (req, res) => {
   let firstChoice;
   let firstPoints;
@@ -114,7 +112,6 @@ app.get("/results", (req, res) => {
   );
 });
 
->>>>>>> 95e8980bc3bbe3873c0a105ff871c6c6c6e52eb7
 app.listen(PORT, () => {
   console.log(`Votr app listening on port ${PORT}.`);
 });
