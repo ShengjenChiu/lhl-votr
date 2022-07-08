@@ -80,21 +80,37 @@ app.get("/polls", (req, res) => {
 });
 
 app.get("/results", (req, res) => {
+  let firstChoice;
+  let firstPoints;
+  let secondChoice;
+  let secondPoints;
+  let thirdPoints;
+  let thirdChoice;
+
   db.query(
-    `SELECT rating FROM submission JOIN polls on poll_id = polls.id WHERE poll_id = 2 ORDER BY rating DESC;`,
+    `SELECT activity, rating FROM submission JOIN polls on poll_id = polls.id WHERE poll_id = 2 ORDER BY rating DESC;`,
     [],
     (err, response) => {
-      console.log(err ? err.stack : response.rows);
+      console.log(response.rows);
+      firstChoice =response.rows[0].activity;
+      firstPoints =response.rows[0].rating;
+      secondChoice = response.rows[1].activity;
+      secondPoints = response.rows[1].rating;
+      thirdPoints  = response.rows[2].rating;
+      thirdChoice =response.rows[2].activity;
+
+      const templateVars = {
+        firstChoice: firstChoice,
+        firstPoints: firstPoints,
+        secondChoice: secondChoice,
+        secondPoints: secondPoints,
+        thirdChoice: thirdChoice,
+        thirdPoints: thirdPoints
+      };
+      console.log(templateVars);
+      res.render("results", templateVars);
     }
   );
-  const templateVars = {
-    firstChoice: choice1,
-    secondChoice: choice2,
-    thirdChoice: choice3,
-  };
-  // console.log(req.body);
-
-  res.render("results", templateVars);
 });
 
 app.listen(PORT, () => {
@@ -192,7 +208,7 @@ app.post("/polls", (req, res) => {
 
   const msg = {
     to: userEmail, // recipient
-    from: "alabitimi65@gmail.com", // verified sender
+    from: "hamza.asim090@gmail.com", // verified sender
     subject: "Mail test",
     text: "If you can read this, it worked",
     html: '<p><a href="http://localhost:8080/vote">Voting Link</a></p> <p><a href="http://localhost:8080/results">Results Link</a></p>',
