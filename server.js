@@ -77,7 +77,44 @@ app.get("/polls", (req, res) => {
   res.render("polls");
 });
 
+<<<<<<< HEAD
 //Start up the server
+=======
+app.get("/results", (req, res) => {
+  let firstChoice;
+  let firstPoints;
+  let secondChoice;
+  let secondPoints;
+  let thirdPoints;
+  let thirdChoice;
+
+  db.query(
+    `SELECT activity, rating FROM submission JOIN polls on poll_id = polls.id WHERE poll_id = 2 ORDER BY rating DESC;`,
+    [],
+    (err, response) => {
+      console.log(response.rows);
+      firstChoice =response.rows[0].activity;
+      firstPoints =response.rows[0].rating;
+      secondChoice = response.rows[1].activity;
+      secondPoints = response.rows[1].rating;
+      thirdPoints  = response.rows[2].rating;
+      thirdChoice =response.rows[2].activity;
+
+      const templateVars = {
+        firstChoice: firstChoice,
+        firstPoints: firstPoints,
+        secondChoice: secondChoice,
+        secondPoints: secondPoints,
+        thirdChoice: thirdChoice,
+        thirdPoints: thirdPoints
+      };
+      console.log(templateVars);
+      res.render("results", templateVars);
+    }
+  );
+});
+
+>>>>>>> 95e8980bc3bbe3873c0a105ff871c6c6c6e52eb7
 app.listen(PORT, () => {
   console.log(`Votr app listening on port ${PORT}.`);
 });
@@ -128,7 +165,7 @@ app.post("/polls", (req, res) => {
 
   const msg = {
     to: userEmail, // recipient
-    from: "alabitimi65@gmail.com", // verified sender
+    from: "hamza.asim090@gmail.com", // verified sender
     subject: "Mail test",
     text: "If you can read this, it worked",
     html: '<p><a href="http://localhost:8080/vote">Voting Link</a></p> <p><a href="http://localhost:8080/results">Results Link</a></p>',
