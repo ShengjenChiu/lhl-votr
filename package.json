@@ -25,11 +25,8 @@
     "morgan": "^1.10.0",
     "pg": "^8.5.0",
     "sass": "^1.35.1",
-<<<<<<< HEAD
     "sendgrid": "^5.2.3",
-=======
     "sendgrid-mail": "0.0.3",
->>>>>>> be35aa4e53c5bae07a2351daf8700ce60f5464ef
     "y": "^0.3.2"
   },
   "devDependencies": {
